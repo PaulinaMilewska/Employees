@@ -1,4 +1,4 @@
-package spring.hibernate;
+package spring.hibernate.employee;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

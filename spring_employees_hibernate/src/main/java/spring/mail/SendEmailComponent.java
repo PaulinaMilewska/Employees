@@ -1,6 +1,6 @@
 package spring.mail;
 
-import spring.hibernate.Employees;
+import spring.hibernate.employee.Employees;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

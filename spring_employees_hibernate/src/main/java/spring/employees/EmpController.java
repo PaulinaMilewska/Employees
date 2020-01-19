@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+//@Controller
 public class EmpController {
     private List<Emp> list;
 
