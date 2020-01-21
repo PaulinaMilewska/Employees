@@ -1,6 +1,5 @@
 package spring.employees;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +27,7 @@ public class EmpController {
     @RequestMapping(value = "/empform", method = RequestMethod.GET)
     public String showform(Model model) {
         model.addAttribute("emp", new Emp());
-        return "emp/empform";
+        return "employeeform";
     }
 
     @RequestMapping(value = "/save_emp")
@@ -55,7 +54,7 @@ public class EmpController {
     @RequestMapping(value = "/edit_emp", method = RequestMethod.POST)
     public ModelAndView edit(@RequestParam(value = "emp_id") String emp_id) {
         Emp emp = getEmployeesById(Integer.parseInt(emp_id));
-        return new ModelAndView("emp/empform", "emp", emp);
+        return new ModelAndView("employeeform", "emp", emp);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
@@ -66,7 +65,7 @@ public class EmpController {
 
     @RequestMapping("/viewemp")
     public ModelAndView viewemp(Model model) {
-        return new ModelAndView("emp/viewemp", "list", list);
+        return new ModelAndView("viewemployees", "list", list);
     }
 
     private Emp getEmployeesById(@RequestParam int id) {

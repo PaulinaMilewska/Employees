@@ -7,6 +7,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import spring.hibernate.employee.Employees;
 
+import java.sql.DriverManager;
 import java.util.Properties;
 
 public class HibernateConfig {
@@ -24,6 +25,7 @@ public class HibernateConfig {
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 settings.put(Environment.HBM2DDL_AUTO, "update");
+
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Employees.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
