@@ -13,9 +13,16 @@
     <div class="form-group">
         <form action="#" class="form-group" th:action="@{/save_emp}" th:object="${emp}" method="post">
             <input type="hidden" th:field="*{id}">
-            <input type="text" class="form-control" th:field="*{name}" placeholder="Name"><br>
+            <input type="text" class="form-control" th:field="*{lastName}" placeholder="lastName"><br>
+            <input type="text" class="form-control" th:field="*{firstName}" placeholder="firstName"><br>
+            <input type="text" class="form-control" th:field="*{address}" placeholder="address"><br>
+            <input type="text" class="form-control" th:field="*{city}" placeholder="city"><br>
             <input type="text" class="form-control" th:field="*{salary}" placeholder="Salary"><br>
-            <input type="text" class="form-control" th:field="*{designation}" placeholder="Designation"><br>
+            <input type="text" class="form-control" th:field="*{age}" placeholder="age"><br>
+<!--            <input type="text" class="form-control" th:field="*{startJobDate}" placeholder="startJobDate"><br>-->
+            <input type="text" class="form-control" th:field="*{benefit}" placeholder="benefit"><br>
+            <input type="text" class="form-control" th:field="*{email}" placeholder="email"><br>
+
             <input type="submit" class="btn btn-danger">
         </form>
         <hr>

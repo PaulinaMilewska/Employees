@@ -20,18 +20,31 @@
             <thead>
             <tr>
                 <th>id</th>
-                <th>Name</th>
-                <th>Salary</th>
-                <th>Designation</th>
+                <th>lastName</th>
+                <th>firstName</th>
+                <th>address</th>
+                <th>city</th>
+                <th>salary</th>
+                <th>age</th>
+                <th>benefit</th>
+                <th>email</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="result" data-th-each="emp : ${list}">
+
+
+            <tr class="result" th:each="emp : ${list}">
                 <td th:text="${emp.id}"></td>
-                <td th:text="${emp.name}"></td>
+                <td th:text="${emp.lastName}"></td>
+                <td th:text="${emp.firstName}"></td>
+                <td th:text="${emp.address}"></td>
+                <td th:text="${emp.city}"></td>
                 <td th:text="${emp.salary}"></td>
-                <td th:text="${emp.designation}"></td>
+                <td th:text="${emp.age}"></td>
+
+                <td th:text="${emp.benefit}"></td>
+                <td th:text="${emp.email}"></td>
 
                 <td class="action-td">
                     <form method="post" class="padding5px" th:action="#" th:action="@{/delete_emp}">
@@ -48,9 +61,9 @@
         </table>
     </div>
 
-    <form method="post" action="test">
-        <input type="submit" class="button" name="test" value="test"/>
-    </form>
+<!--    <form method="post" action="test">-->
+<!--        <input type="submit" class="button" name="test" value="test"/>-->
+<!--    </form>-->
 </div>
 </body>
 </html>

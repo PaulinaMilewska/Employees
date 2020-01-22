@@ -7,4 +7,29 @@
     <bean id="scopeExample" class="spring.scope.ScopeExample" scope="prototype" />
     <bean id="scopeSingletonExample" class="spring.scope.ScopeExample" scope="singleton" />
 
+
+<!--    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource" />-->
+<!--        <property name="packagesToScan" value="pl.kobietydokodu.model" />-->
+<!--        <property name="jpaVendorAdapter">-->
+<!--            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
+<!--                <property name="showSql" value="false" />-->
+<!--                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--        <property name="jpaProperties">-->
+<!--            <props>-->
+<!--                <prop key="hibernate.hbm2ddl.auto">update</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />-->
+<!--    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
+<!--    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+<!--        <property name="entityManagerFactory" ref="entityManagerFactory" />-->
+<!--    </bean>-->
+
+
+
+
 </beans>

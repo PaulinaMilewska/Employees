@@ -1,6 +1,6 @@
 package spring.mail;
 
-import spring.hibernate.Employees;
+import spring.hibernate.employee.Employee;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -37,13 +37,13 @@ public class SendEmailComponent {
                 });
     }
 
-    public void sendEmailUpdate(Employees employees) {
+    public void sendEmailUpdate(Employee employee) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("from@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employees.getEmail()));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employee.getEmail()));
             message.setSubject("Aktualizacja danych");
-            message.setText("Dzień dobry " + employees.getFirstName() + "," + "\n\n Twoje dane zostały zaktualizowane");
+            message.setText("Dzień dobry " + employee.getFirstName() + "," + "\n\n Twoje dane zostały zaktualizowane");
 
             Transport.send(message);
         } catch (MessagingException e) {
@@ -51,13 +51,13 @@ public class SendEmailComponent {
         }
     }
 
-    public void sendEmailDelete(Employees employees) {
+    public void sendEmailDelete(Employee employee) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("from@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employees.getEmail()));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employee.getEmail()));
             message.setSubject("Usunięcie danych");
-            message.setText("Dzień dobry " + employees.getFirstName() + "," + "\n\n Twoje dane zostały usunięte");
+            message.setText("Dzień dobry " + employee.getFirstName() + "," + "\n\n Twoje dane zostały usunięte");
 
             Transport.send(message);
         } catch (MessagingException e) {
@@ -66,13 +66,13 @@ public class SendEmailComponent {
 
     }
 
-    public void sendEmailAdd(Employees employees) {
+    public void sendEmailAdd(Employee employee) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("from@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employees.getEmail()));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employee.getEmail()));
             message.setSubject("Aktualizacja danych");
-            message.setText("Dzień dobry " + employees.getFirstName() + "," + "\n\n Twoje dane zostały dodane do bazy pracowników");
+            message.setText("Dzień dobry " + employee.getFirstName() + "," + "\n\n Twoje dane zostały dodane do bazy pracowników");
 
             Transport.send(message);
         } catch (MessagingException e) {
