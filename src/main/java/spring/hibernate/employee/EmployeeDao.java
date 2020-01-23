@@ -9,12 +9,13 @@ import java.util.List;
 
 @Component
 public class EmployeeDao {
-
+List<Employees> list;
 
     public void saveEmployee(Employees employee) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
+            employee.setId(employee.getId()+1);
             session.save(employee);
             transaction.commit();
         } catch (Exception e) {

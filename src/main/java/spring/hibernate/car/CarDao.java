@@ -14,10 +14,9 @@ public class CarDao {
 
     public void saveCar(Car car) {
         Transaction transaction = null;
-        try (
-                Session session = HibernateConfig.getSessionFactory().openSession()
-        ){
+        try (Session session = HibernateConfig.getSessionFactory().openSession()){
             transaction = session.beginTransaction();
+           car.setId(car.getId()+2);
             session.save(car);
             transaction.commit();
         } catch (Exception e) {
@@ -29,10 +28,8 @@ public class CarDao {
     }
 
     public List<Car> getCar() {
-
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             return session.createQuery("FROM Car", Car.class).list();
-
         }
     }
 

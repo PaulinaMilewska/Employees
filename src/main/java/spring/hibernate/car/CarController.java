@@ -20,26 +20,22 @@ public class CarController {
 
 
     public CarController() {
-//        carDao = new CarDao();
-//        try {
-//            list = carDao.getCar();
-//        } catch (
-//                NullPointerException exception) {
-//            System.out.println("No connection with database");
-//            exception.getMessage();
-//            list = new ArrayList<>();
+        carDao = new CarDao();
+        try {
+            list = carDao.getCar();
+        } catch (
+                NullPointerException exception) {
+            System.out.println("No connection with database");
+            exception.getMessage();
+            list = new ArrayList<>();
 
 
 //            Employees emp1 = new Employees("Rafael", "Michael", "123, Tutti St", "Roma", 5000, 34, new Date(2001 - 01 - 01), 1);
 //            Employees emp2 = new Employees("Pizza", "Pasta", "543, Allora St", "Milan", 2300, 52, new Date(2012 - 11 - 04), 0);
 //            list.addAll(Arrays.asList(emp1, emp2));
-//        }
+        }
     }
 
-//    @RequestMapping("/")
-//    public String indexGet() {
-//        return "index";
-//    }
 
     //seems to be working
     @RequestMapping(value = "/carform", method = RequestMethod.GET)
@@ -52,8 +48,8 @@ public class CarController {
     @RequestMapping("/save_car")
     public ModelAndView saveCar(@ModelAttribute(value = "car") Car car) {
         if (car.getId() == 0) {
+            car.setId(Long.valueOf(list.size()+1));
             carDao.saveCar(car);
-
         } else {
             carDao.updateCar(car);
         }

@@ -25,13 +25,8 @@ public class MainHibernate {
         employeesList.forEach(System.out::println);
 
         CarDao carDao = new CarDao();
-        Car car = new Car("VW", "Polo", 22, new Date());
-//        "VW", "Polo", 22, new Date()
-//        car.setId((long) 1);
-//        car.setBrand("VW");
-//        car.setMaxSpeed(189);
-//        car.setModel("Passat");
-//        car.setRegistrationDate(new Date());
+        Car car = new Car( "VW", "Polo", 22, new Date());
+//        car.setId((long) 100);
 //        carDao.saveCar(car);
 //        List<Car> carList = carDao.getCar();
 //

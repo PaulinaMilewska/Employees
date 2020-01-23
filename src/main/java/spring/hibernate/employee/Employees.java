@@ -2,6 +2,7 @@ package spring.hibernate.employee;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import spring.hibernate.car.Car;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,10 +16,10 @@ import java.util.Set;
 @AllArgsConstructor
 public class Employees {
 
-//    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL
-//            , fetch = FetchType.EAGER
-//    )
-//    private List<Car> cars;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL
+            , fetch = FetchType.EAGER
+    )
+    private List<Car> cars;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

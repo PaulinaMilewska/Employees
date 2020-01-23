@@ -20,10 +20,10 @@ public class Car {
     public Car() {
     }
 
-//    @ManyToOne(cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "employee_id")
-//    @NonNull
-//    private Employees employee;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "employee_id")
+    @NonNull
+    private Employees employee;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,13 +47,17 @@ public class Car {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registrationDate;
 
-//    public Employee getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
+    public Car(String vw, String polo, int i, Date date) {
+    }
+
+
+    public Employees getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employees employee) {
+        this.employee = employee;
+    }
 
     public Long getId() {
         return id;
