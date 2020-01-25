@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Employees {
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL
+    @OneToMany(mappedBy = "employee"
             , fetch = FetchType.EAGER
     )
     private List<Car> cars;
