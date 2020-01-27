@@ -1,6 +1,6 @@
 package spring.hibernate;
 
-import spring.hibernate.car.Car;
+
 import spring.hibernate.car.CarDao;
 import spring.hibernate.employee.EmployeeDao;
 import spring.hibernate.employee.Employees;
@@ -14,18 +14,18 @@ public class MainHibernate {
 
 
         EmployeeDao employeeDao = new EmployeeDao();
-        Employees employee = new Employees("Adam", "Nowak", "Słoneczna", "Warsaw", 77, 18, new Date(), 2);
-        employeeDao.saveEmployee(employee);
+        Employees employee = new Employees("Ewa", "Nowak", "Słoneczna", "Gdansk", 120, 18, new Date(), 2);
+//        employeeDao.saveEmployee(employee);
         List<Employees> employeesList = employeeDao.getEmployees();
 
-        Employees employeeToUpdate = employeesList.get(0);
-        employeeToUpdate.setSalary(123);
+      //  Employees employeeToUpdate = employeesList.get(0);
+    //    employeeToUpdate.setSalary(123);
 
-        employeeDao.updateEmployees(employeeToUpdate);
+//        employeeDao.updateEmployees(employeeToUpdate);
         employeesList.forEach(System.out::println);
 
         CarDao carDao = new CarDao();
-        Car car = new Car( "VW", "Polo", 22, new Date());
+   //     Car car = new Car( "VW", "Polo", 22, new Date());
 //        car.setId((long) 100);
 //        carDao.saveCar(car);
 //        List<Car> carList = carDao.getCar();

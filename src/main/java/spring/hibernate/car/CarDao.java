@@ -4,19 +4,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
+import spring.hibernate.CarEmployeeDao;
 import spring.hibernate.HibernateConfig;
+import spring.hibernate.TypeObject;
 import spring.hibernate.employee.Employees;
 
 import java.util.List;
 
 @Component
-public class CarDao {
+public class CarDao implements TypeObject {
 
-    public void saveCar(Car car) {
+    public CarDao() {
+    }
+
+    public void saveCar(Cars car) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()){
             transaction = session.beginTransaction();
-           car.setId(car.getId()+2);
+//           car.setId(car.getId()+2);
             session.save(car);
             transaction.commit();
         } catch (Exception e) {
@@ -27,13 +32,15 @@ public class CarDao {
         }
     }
 
-    public List<Car> getCar() {
+
+
+    public List<Cars> getCar() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Car", Car.class).list();
+            return session.createQuery("FROM Car", Cars.class).list();
         }
     }
 
-    public void updateCar(Car car) {
+    public void updateCar(Cars car) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -47,15 +54,15 @@ public class CarDao {
         }
     }
 
-    public Car getCarById(Integer car_id) {
+    public Cars getCarById(Integer car_id) {
         {
             try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-                return session.get(Car.class, car_id);
+                return session.get(Cars.class, car_id);
             }
         }
     }
 
-    public void deleteCar(Car carToDelete) {
+    public void deleteCar(Cars carToDelete) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();

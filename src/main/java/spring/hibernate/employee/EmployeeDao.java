@@ -15,7 +15,7 @@ List<Employees> list;
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            employee.setId(employee.getId()+1);
+//            employee.setId(employee.getId()+1);
             session.save(employee);
             transaction.commit();
         } catch (Exception e) {
@@ -28,7 +28,7 @@ List<Employees> list;
 
     public List<Employees> getEmployees() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery(" FROM  Employees", Employees.class).list();
+            return session.createQuery("FROM  Employees", Employees.class).list();
         }
     }
 
