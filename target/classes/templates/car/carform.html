@@ -13,10 +13,11 @@
     <div class="form-group">
         <form action="#" class="form-group" th:action="@{/save_car}" th:object="${car}" method="post">
             <input type="hidden" th:field="*{id}">
-            <input type="text" class="form-control" th:field="*{brand}" placeholder="brand"><br>
-            <input type="text" class="form-control" th:field="*{model}" placeholder="model"><br>
-            <input type="text" class="form-control" th:field="*{maxSpeed}" placeholder="maxSpeed"><br>
-            <input type="text" class="form-control" th:field="*{registrationDate}" placeholder="registrationDate"><br>
+            <input type="text" class="form-control" th:field="*{name}" placeholder="Brand"><br>
+            <input type="text" class="form-control" th:field="*{model}" placeholder="Model"><br>
+<!--            <input type="text" class="form-control" th:field="*{maxSpeed}" placeholder="maxSpeed"><br>-->
+            <input type="text" class="form-control" th:field="*{registrationDate}" placeholder="Registration Date"><br>
+            <input type="text" class="form-control" th:field="*{employees.id}" placeholder="Employee ID"><br>
 
             <input type="submit" class="btn btn-danger">
         </form>

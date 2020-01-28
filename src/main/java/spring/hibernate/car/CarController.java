@@ -30,33 +30,33 @@ public class CarController {
                 NullPointerException exception) {
             exception.getMessage();
             list = new ArrayList<>();
-
-
         }
     }
 
 
-    //seems to be working
     @RequestMapping(value = "/carform", method = RequestMethod.GET)
     public String showform(Model model) {
         model.addAttribute("car", new Cars());
         return "car/carform";
     }
 
+    // update nie działa poprawnie - przy zmianie ID Employee kasuje dane Employee (FirstName, LastName itd)
     @RequestMapping("/save_car")
     public ModelAndView saveCar(@ModelAttribute(value = "car") Cars car) {
         if (car.getId() == 0) {
 //            car.setId(Long.valueOf(list.size()+1));
             carEmployeeDao.save(car);
         } else {
-            System.out.println(car.getId());
+            System.out.println("Car ID -------- "+car.getId());
+            System.out.println("Employee ID -------- "+car.getEmployees().getId());
+
             carEmployeeDao.update(car);
             car.setId(car.getId());
         }
         return new ModelAndView("redirect:/viewcar");
     }
 
-    // does't save changes - exception null ID
+// nie edyduje ostatniej pozycji i po zmianie EmployeeID kasuje dane Employee o tym ID
     @RequestMapping(value = "/edit_car")
     public ModelAndView edit(@RequestParam(value = "car_id") String car_id) {
         Cars car = getCarById(Integer.parseInt(car_id));
@@ -72,6 +72,7 @@ public class CarController {
     @RequestMapping(value = "/delete_car", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "car_id") String car_id) {
         Cars carToDelete =  getCarById(Integer.parseInt(car_id));
+        System.out.println("Car id: "+ car_id);
         carEmployeeDao.delete( carToDelete);
         return new ModelAndView("redirect:/viewcar");
     }

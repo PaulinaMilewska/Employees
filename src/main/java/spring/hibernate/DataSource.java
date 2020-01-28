@@ -6,6 +6,7 @@ import org.springframework.format.Printer;
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
 
+import java.time.Instant;
 import java.util.*;
 
 public class DataSource {
@@ -22,7 +23,7 @@ public class DataSource {
 
         try {
             carEmployeeDao = new CarEmployeeDao();
-//            isDataBaseConnection = Boolean.TRUE;
+            isDataBaseConnection = Boolean.TRUE;
         } catch (NullPointerException ex) {
             System.out.println("Brak połączenia z bazą danych");
             ex.getMessage();
@@ -36,6 +37,8 @@ public class DataSource {
         employees.setCity("Warszawa");
         employees.setSalary(9000);
         employees.setAddress("Złota");
+//        Date date = new Date();
+//        date= Date.from(Instant.parse("2000-02-04"));
         employees.setStartJobDate(new Date());
         employees.setEmail("crimson.kuba@gmail.com");
 
@@ -45,6 +48,7 @@ public class DataSource {
         cars.setEmployees(employees);
         cars.setModel("126p");
         cars.setName("Fiat");
+        cars.setRegistrationDate(new Date());
 
         carEmployeeDao.save(cars);
 

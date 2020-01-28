@@ -21,20 +21,26 @@
             <thead>
             <tr>
                 <th>id</th>
-                <th>brand</th>
+                <th>name</th>
                 <th>model</th>
-                <th>maxSpeed</th>
+<!--                <th>maxSpeed</th>-->
                 <th>registrationDate</th>
+                <th>EmployeeID</th>
+<!--                <th>FirstName</th>-->
+<!--                <th>LastName</th>-->
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr class="result" th:each="car : ${list}">
                 <td th:text="${car.id}"></td>
-                <td th:text="${car.brand}"></td>
+                <td th:text="${car.name}"></td>
                 <td th:text="${car.model}"></td>
-                <td th:text="${car.maxSpeed}"></td>
+<!--                <td th:text="${car.maxSpeed}"></td>-->
                 <td th:text="${car.registrationDate}"></td>
+                <td th:text="${car.employees.id}"></td>
+<!--                <td th:text="${car.employees.firstName}"></td>-->
+<!--                <td th:text="${car.employees.lastName}"></td>-->
 
                 <td class="action-td">
                     <form method="post" class="padding5px" th:action="#" th:action="@{/delete_car}">
