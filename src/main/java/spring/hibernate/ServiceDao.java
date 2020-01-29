@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Configurable
-public class CarEmployeeDao {
+public class ServiceDao {
 
     public  void save(TypeObject object) {
         Transaction transaction = null;

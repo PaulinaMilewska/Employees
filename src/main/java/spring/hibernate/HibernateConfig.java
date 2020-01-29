@@ -7,6 +7,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
+import spring.hibernate.printer.Printers;
 
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -31,6 +32,7 @@ public class HibernateConfig {
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Employees.class);
                 configuration.addAnnotatedClass(Cars.class);
+                configuration.addAnnotatedClass(Printers.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {

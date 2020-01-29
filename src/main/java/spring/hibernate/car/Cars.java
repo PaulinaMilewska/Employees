@@ -11,7 +11,6 @@ import java.util.Date;
 @Entity
 @Table(name = "Cars")
 @Data
-//@Getter @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Cars implements TypeObject {

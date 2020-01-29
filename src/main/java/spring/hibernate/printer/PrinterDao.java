@@ -1,4 +1,4 @@
-package spring.hibernate.car;
+package spring.hibernate.printer;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,17 +9,17 @@ import spring.hibernate.TypeObject;
 import java.util.List;
 
 @Component
-public class CarDao implements TypeObject {
+public class PrinterDao implements TypeObject {
 
-    public CarDao() {
+    public PrinterDao() {
     }
 
-    public void saveCar(Cars car) {
+    public void savePrinter(Printers printers) {
         Transaction transaction = null;
-        try (Session session = HibernateConfig.getSessionFactory().openSession()){
+        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-//           car.setId(car.getId()+2);
-            session.save(car);
+//           printer.setId(printer.getId()+2);
+            session.save(printers);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -30,18 +30,17 @@ public class CarDao implements TypeObject {
     }
 
 
-
-    public List<Cars> getCar() {
+    public List<Printers> getPrinter() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Car", Cars.class).list();
+            return session.createQuery("FROM Printer", Printers.class).list();
         }
     }
 
-    public void updateCar(Cars car) {
+    public void updatePrinter(Printers printers) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(car);
+            session.update(printers);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -51,19 +50,19 @@ public class CarDao implements TypeObject {
         }
     }
 
-    public Cars getCarById(Integer car_id) {
+    public Printers getPrinterById(Integer printer_id) {
         {
             try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-                return session.get(Cars.class, car_id);
+                return session.get(Printers.class, printer_id);
             }
         }
     }
 
-    public void deleteCar(Cars carToDelete) {
+    public void deletePrinter(Printers printersToDelete) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.delete(carToDelete);
+            session.delete(printersToDelete);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

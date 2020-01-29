@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import spring.hibernate.CarEmployeeDao;
+import spring.hibernate.ServiceDao;
 import spring.hibernate.DataSource;
-import spring.hibernate.TypeObject;
 import spring.hibernate.employee.Employees;
 
 import java.util.ArrayList;
@@ -19,15 +18,15 @@ import java.util.List;
 public class CarController  {
     private List<Cars> list;
     private CarDao carDao;
-    CarEmployeeDao carEmployeeDao;
+    ServiceDao serviceDao;
 
 
     public CarController()  {
 
         try {
-            carEmployeeDao = new CarEmployeeDao();
+            serviceDao = new ServiceDao();
 //            DataSource.supplyDatabase();
-            list = carEmployeeDao.get(Cars.class);
+            list = serviceDao.get(Cars.class);
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
@@ -46,7 +45,7 @@ public class CarController  {
     public ModelAndView saveCar(@ModelAttribute(value = "car") Cars car) {
         if (car.getId() == 0) {
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.save(car);
+                serviceDao.save(car);
             }
             car.setId(list.size());
             list.add(car);
@@ -58,7 +57,7 @@ public class CarController  {
 //            System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
             if (DataSource.isDataBaseConnection) {
                 car.setEmployees(emp);
-                carEmployeeDao.update(car);
+                serviceDao.update(car);
 
             }
             list.set(car.getId()-1, car);
@@ -96,7 +95,7 @@ public class CarController  {
         Cars carToDelete =  getCarById(Integer.parseInt(car_id));
         System.out.println("Car2 id: "+ car_id);
         if (DataSource.isDataBaseConnection) {
-            carEmployeeDao.delete(carToDelete);
+            serviceDao.delete(carToDelete);
         }
         list.remove(carToDelete);
         return new ModelAndView("redirect:/viewcar");
@@ -106,7 +105,7 @@ public class CarController  {
     @RequestMapping("/viewcar")
     public ModelAndView viewcar(Model model) {
 //        List<Car> list = carDao.getCar();
-        List<Cars> list = carEmployeeDao.get(Cars.class);
+        List<Cars> list = serviceDao.get(Cars.class);
         return new ModelAndView("car/viewcar", "list", list);
     }
 

@@ -1,12 +1,8 @@
 package spring.hibernate;
 
-import javafx.scene.effect.SepiaTone;
-
-import org.springframework.format.Printer;
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
 
-import java.time.Instant;
 import java.util.*;
 
 public class DataSource {
@@ -20,12 +16,12 @@ public class DataSource {
 
     public static void supplyDatabase() {
 //        HibernateDao hibernateDao = null;
-        CarEmployeeDao carEmployeeDao = null;
+        ServiceDao serviceDao = null;
 
 
 
         try {
-            carEmployeeDao = new CarEmployeeDao();
+            serviceDao = new ServiceDao();
             isDataBaseConnection = Boolean.TRUE;
         } catch (NullPointerException ex) {
             System.out.println("Brak połączenia z bazą danych");
@@ -33,19 +29,19 @@ public class DataSource {
         }
 
         Employees employees = new Employees();
-        employees.setFirstName("Jan");
-        employees.setLastName("Nowakowski");
-        employees.setAge(51);
+        employees.setFirstName("Janina");
+        employees.setLastName("Nowakowska");
+        employees.setAge(77);
         employees.setBenefit(1);
-        employees.setCity("Warszawa");
-        employees.setSalary(7000);
-        employees.setAddress("Nowa");
+        employees.setCity("Stara");
+        employees.setSalary(3000);
+        employees.setAddress("Twoja 1");
 //        Date date = new Date();
 //        date= Date.from(Instant.parse("2000-02-04"));
         employees.setStartJobDate(new Date());
         employees.setEmail("example@wp.com");
 
-        carEmployeeDao.save(employees);
+        serviceDao.save(employees);
 
         Cars cars = new Cars();
         cars.setEmployees(employees);
@@ -53,7 +49,7 @@ public class DataSource {
         cars.setName("Kia");
         cars.setRegistrationDate(new Date());
 
-        carEmployeeDao.save(cars);
+        serviceDao.save(cars);
 
         Set<Cars> carsSet = new HashSet<>();
         carsSet.add(cars);
@@ -73,7 +69,6 @@ public class DataSource {
 
 //        carEmployeeDao.update(employees);
     }
-
 
     public static List<Employees> getEmployeeList(){
         List<Employees> list = new ArrayList<>();

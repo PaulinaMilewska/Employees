@@ -4,31 +4,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import spring.hibernate.CarEmployeeDao;
+import spring.hibernate.ServiceDao;
 import spring.hibernate.DataSource;
-import spring.hibernate.TypeObject;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class EmployeeController extends CarEmployeeDao{
+public class EmployeeController extends ServiceDao {
 
     private List<Employees> employees;
-    private List<CarEmployeeDao> listCarEmpDao;
+    private List<ServiceDao> listCarEmpDao;
 
     private EmployeeDao employeeDao;
-    private CarEmployeeDao carEmployeeDao;
+    private ServiceDao serviceDao;
 
 
 
     public EmployeeController() {
 
         try {
-            carEmployeeDao = new CarEmployeeDao();
+            serviceDao = new ServiceDao();
             DataSource.supplyDatabase();
-            employees = carEmployeeDao.get(Employees.class);
+            employees = serviceDao.get(Employees.class);
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
@@ -57,7 +56,7 @@ public class EmployeeController extends CarEmployeeDao{
 //            employeeDao.saveEmployee(employee);
             System.out.println("Add new employee");
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.save(employee);
+                serviceDao.save(employee);
             }
             employee.setId(employees.size());
             employees.add(employee);
@@ -67,7 +66,7 @@ public class EmployeeController extends CarEmployeeDao{
 //            employeeDao.updateEmployees(employee);
 //            updateEmployeeInList(employee);
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.update(employee);
+                serviceDao.update(employee);
             }
 //            employee.setId(employees.size());
             employees.set(employee.getId()-1, employee);
@@ -96,7 +95,7 @@ public class EmployeeController extends CarEmployeeDao{
         Employees employeeToDelete = getEmployeesById(Integer.parseInt(employee_id));
         employees.remove(employeeToDelete);
         if (DataSource.isDataBaseConnection) {
-            carEmployeeDao.delete(employeeToDelete);
+            serviceDao.delete(employeeToDelete);
         }
         return new ModelAndView("redirect:/viewemployees");
     }

@@ -20,7 +20,6 @@ public class MainHibernate {
 
       //  Employees employeeToUpdate = employeesList.get(0);
     //    employeeToUpdate.setSalary(123);
-
 //        employeeDao.updateEmployees(employeeToUpdate);
         employeesList.forEach(System.out::println);
 
