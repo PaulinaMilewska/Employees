@@ -30,6 +30,7 @@
                 <th>Start of the Job</th>
                 <th>Benefit</th>
                 <th>Email</th>
+<!--                <th>Cars</th>-->
                 <th>Action</th>
             </tr>
             </thead>
@@ -45,6 +46,7 @@
                 <td th:text="${employee.startJobDate}"></td>
                 <td th:text="${employee.benefit}"></td>
                 <td th:text="${employee.email}"></td>
+<!--                <td th:text="${employee.cars}"></td>-->
 
                 <td class="action-td">
                     <form method="post" class="padding5px" th:action="#" th:action="@{/delete_employee}">

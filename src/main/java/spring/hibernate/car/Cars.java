@@ -11,6 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "Cars")
 @Data
+//@Getter @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Cars implements TypeObject {
@@ -24,6 +25,7 @@ public class Cars implements TypeObject {
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false, referencedColumnName="ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+//    @Getter @Setter
     @NonNull
     public Employees employees;
 

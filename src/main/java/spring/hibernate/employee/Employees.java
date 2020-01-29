@@ -31,9 +31,11 @@ public class Employees implements TypeObject {
     private int id;
     @Column(name = "LastName")
     @NonNull
+    @Getter @Setter
     private String lastName;
     @Column(name = "FirstName")
     @NonNull
+    @Getter @Setter
     private String firstName;
     @Column(name = "Address")
     @NonNull
@@ -76,6 +78,7 @@ public class Employees implements TypeObject {
 
     public Employees() {
     }
+
 
 
 }

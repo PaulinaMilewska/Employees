@@ -17,9 +17,12 @@ public class DataSource {
         supplyDatabase();
     }
 
+
     public static void supplyDatabase() {
 //        HibernateDao hibernateDao = null;
         CarEmployeeDao carEmployeeDao = null;
+
+
 
         try {
             carEmployeeDao = new CarEmployeeDao();
@@ -32,22 +35,22 @@ public class DataSource {
         Employees employees = new Employees();
         employees.setFirstName("Jan");
         employees.setLastName("Nowakowski");
-        employees.setAge(19);
+        employees.setAge(51);
         employees.setBenefit(1);
         employees.setCity("Warszawa");
-        employees.setSalary(9000);
-        employees.setAddress("Złota");
+        employees.setSalary(7000);
+        employees.setAddress("Nowa");
 //        Date date = new Date();
 //        date= Date.from(Instant.parse("2000-02-04"));
         employees.setStartJobDate(new Date());
-        employees.setEmail("crimson.kuba@gmail.com");
+        employees.setEmail("example@wp.com");
 
         carEmployeeDao.save(employees);
 
         Cars cars = new Cars();
         cars.setEmployees(employees);
-        cars.setModel("126p");
-        cars.setName("Fiat");
+        cars.setModel("Ceed");
+        cars.setName("Kia");
         cars.setRegistrationDate(new Date());
 
         carEmployeeDao.save(cars);
@@ -68,7 +71,7 @@ public class DataSource {
 
 //        employees.setPrinters(printerSet);
 
-        carEmployeeDao.update(employees);
+//        carEmployeeDao.update(employees);
     }
 
 

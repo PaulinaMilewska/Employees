@@ -8,19 +8,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import spring.hibernate.CarEmployeeDao;
+import spring.hibernate.DataSource;
 import spring.hibernate.TypeObject;
+import spring.hibernate.employee.Employees;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CarController {
+public class CarController  {
     private List<Cars> list;
     private CarDao carDao;
     CarEmployeeDao carEmployeeDao;
 
 
-    public CarController() {
+    public CarController()  {
 
         try {
             carEmployeeDao = new CarEmployeeDao();
@@ -40,27 +42,46 @@ public class CarController {
         return "car/carform";
     }
 
-    // update nie działa poprawnie - przy zmianie ID Employee kasuje dane Employee (FirstName, LastName itd)
     @RequestMapping("/save_car")
     public ModelAndView saveCar(@ModelAttribute(value = "car") Cars car) {
         if (car.getId() == 0) {
-//            car.setId(Long.valueOf(list.size()+1));
-            carEmployeeDao.save(car);
-        } else {
-            System.out.println("Car ID -------- "+car.getId());
-            System.out.println("Employee ID -------- "+car.getEmployees().getId());
+            if (DataSource.isDataBaseConnection) {
+                carEmployeeDao.save(car);
+            }
+            car.setId(list.size());
+            list.add(car);
 
-            carEmployeeDao.update(car);
-            car.setId(car.getId());
+        } else {
+            System.out.println();
+            System.out.println("Car ID -------- "+car.getId());
+//            System.out.println("Employee ID -------- "+car.getEmployees().getId());
+//            System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
+            if (DataSource.isDataBaseConnection) {
+                car.setEmployees(emp);
+                carEmployeeDao.update(car);
+
+            }
+            list.set(car.getId()-1, car);
+            updateCarInList(car);
         }
         return new ModelAndView("redirect:/viewcar");
     }
+    Employees emp;
 
-// nie edyduje ostatniej pozycji i po zmianie EmployeeID kasuje dane Employee o tym ID
+
+    // doesn't edit last position
     @RequestMapping(value = "/edit_car")
     public ModelAndView edit(@RequestParam(value = "car_id") String car_id) {
+        System.out.println();
         Cars car = getCarById(Integer.parseInt(car_id));
-        return new ModelAndView("car/carform", "car", car);
+        System.out.println("Car_id: "+ car_id);
+        System.out.println("EMP_ID: "+ car.getEmployees().getId());
+        System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
+        emp = car.getEmployees();
+//        if (DataSource.isDataBaseConnection) {
+//            carEmployeeDao.update(car);
+//        }
+            return new ModelAndView("car/carform", "car", car);
     }
 
 
@@ -71,9 +92,13 @@ public class CarController {
 // doesn't delete last position
     @RequestMapping(value = "/delete_car", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "car_id") String car_id) {
+        System.out.println("Car1 id: "+ car_id);
         Cars carToDelete =  getCarById(Integer.parseInt(car_id));
-        System.out.println("Car id: "+ car_id);
-        carEmployeeDao.delete( carToDelete);
+        System.out.println("Car2 id: "+ car_id);
+        if (DataSource.isDataBaseConnection) {
+            carEmployeeDao.delete(carToDelete);
+        }
+        list.remove(carToDelete);
         return new ModelAndView("redirect:/viewcar");
     }
 
@@ -83,6 +108,14 @@ public class CarController {
 //        List<Car> list = carDao.getCar();
         List<Cars> list = carEmployeeDao.get(Cars.class);
         return new ModelAndView("car/viewcar", "list", list);
+    }
+
+    private void updateCarInList(Cars cars) {
+        Cars carTemp = getCarById(cars.getId());
+        carTemp.setName(cars.getName());
+        carTemp.setModel(cars.getModel());
+        carTemp.setRegistrationDate(cars.getRegistrationDate());
+//        carTemp.setEmployees(cars.getEmployees());
     }
 
 }

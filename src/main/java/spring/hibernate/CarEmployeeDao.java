@@ -2,12 +2,16 @@ package spring.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
+@Service
+@Configurable
 public class CarEmployeeDao {
 
     public  void save(TypeObject object) {

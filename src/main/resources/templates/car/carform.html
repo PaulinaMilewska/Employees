@@ -17,7 +17,14 @@
             <input type="text" class="form-control" th:field="*{model}" placeholder="Model"><br>
 <!--            <input type="text" class="form-control" th:field="*{maxSpeed}" placeholder="maxSpeed"><br>-->
             <input type="text" class="form-control" th:field="*{registrationDate}" placeholder="Registration Date"><br>
-            <input type="text" class="form-control" th:field="*{employees.id}" placeholder="Employee ID"><br>
+<!--            <input type="hidden" class="form-control" th:field="*{employees.id}" placeholder="Employee ID"><br>-->
+
+<!--            <select class="form-control" name="item.id" required>-->
+<!--                <option value="default">Select employee</option>-->
+<!--                <option th:each="var : ${employees}"-->
+<!--                        th:value="${var.id}" ></option>-->
+<!--&lt;!&ndash;                        th:text="${var.firstName} + ' ' + ${var.lastName}"></option>&ndash;&gt;-->
+<!--            </select>-->
 
             <input type="submit" class="btn btn-danger">
         </form>
