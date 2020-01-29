@@ -31,11 +31,13 @@ public class Employees implements TypeObject {
     private int id;
     @Column(name = "LastName")
     @NonNull
-    @Getter @Setter
+    @Getter
+    @Setter
     private String lastName;
     @Column(name = "FirstName")
     @NonNull
-    @Getter @Setter
+    @Getter
+    @Setter
     private String firstName;
     @Column(name = "Address")
     @NonNull
@@ -58,10 +60,15 @@ public class Employees implements TypeObject {
     private int benefit;
     @Column(name = "Email")
     private String email;
+
     @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Cars> cars;
+//
+    //todo : make it work
+//    @ManyToMany (cascade = CascadeType.ALL)
+//    @JoinTable(name = "Printer", joinColumns = {@JoinColumn(referencedColumnName="printer_ID")})
 
 
 //    @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
@@ -75,10 +82,7 @@ public class Employees implements TypeObject {
 //    public Employees(){}
 
 
-
     public Employees() {
     }
-
-
 
 }

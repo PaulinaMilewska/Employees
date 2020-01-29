@@ -21,7 +21,6 @@ public class EmployeeController extends ServiceDao {
     private ServiceDao serviceDao;
 
 
-
     public EmployeeController() {
 
         try {
@@ -69,12 +68,12 @@ public class EmployeeController extends ServiceDao {
                 serviceDao.update(employee);
             }
 //            employee.setId(employees.size());
-            employees.set(employee.getId()-1, employee);
+            employees.set(employee.getId() - 1, employee);
         }
         return new ModelAndView("redirect:/viewemployees");
     }
 
-// doesn't edit last position
+    // doesn't edit last position
     @RequestMapping(value = "/edit_employee")
     public ModelAndView edit(@RequestParam(value = "employee_id") String employee_id) {
         System.out.printf("");
@@ -89,7 +88,7 @@ public class EmployeeController extends ServiceDao {
         return employees.stream().filter(f -> f.getId() == employee_id).findFirst().get();
     }
 
-// doesn't delete last position
+    // doesn't delete last position
     @RequestMapping(value = "/delete_employee", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "employee_id") String employee_id) {
         Employees employeeToDelete = getEmployeesById(Integer.parseInt(employee_id));

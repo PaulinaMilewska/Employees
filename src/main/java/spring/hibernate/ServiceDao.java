@@ -14,7 +14,7 @@ import java.util.List;
 @Configurable
 public class ServiceDao {
 
-    public  void save(TypeObject object) {
+    public void save(TypeObject object) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -28,7 +28,7 @@ public class ServiceDao {
         }
     }
 
-    public  void saveList(List<TypeObject> object) {
+    public void saveList(List<TypeObject> object) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -43,7 +43,7 @@ public class ServiceDao {
     }
 
 
-    public  <T> List<T> get(Class<T> type) {
+    public <T> List<T> get(Class<T> type) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -54,7 +54,7 @@ public class ServiceDao {
         return data;
     }
 
-    public  void update(TypeObject object) {
+    public void update(TypeObject object) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -68,7 +68,7 @@ public class ServiceDao {
         }
     }
 
-    public  void delete(TypeObject object) {
+    public void delete(TypeObject object) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();

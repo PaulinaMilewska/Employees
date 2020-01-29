@@ -41,6 +41,8 @@ public class PrinterController {
         return "printer/printerform";
     }
 
+    //doesn't work
+    // todo : repair
     @RequestMapping("/save_printer")
     public ModelAndView savePrinter(@ModelAttribute(value = "printer") Printers printers) {
         if (printers.getId() == 0) {
@@ -69,7 +71,6 @@ public class PrinterController {
     Employees emp;
 
 
-    // doesn't edit last position
     @RequestMapping(value = "/edit_printer")
     public ModelAndView edit(@RequestParam(value = "printer_id") String printer_id) {
         System.out.println();
@@ -89,7 +90,7 @@ public class PrinterController {
         return list.stream().filter(f -> f.getId() == printer_id).findFirst().get();
     }
 
-    // doesn't delete last position
+
     @RequestMapping(value = "/delete_printer", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "printer_id") String printer_id) {
         System.out.println("Printer 1 id: " + printer_id);

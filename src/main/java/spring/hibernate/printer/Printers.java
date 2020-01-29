@@ -18,6 +18,7 @@ public class Printers implements TypeObject {
     @Column(name = "ID")
     private int id;
 
+    // todo: change to @ManyToMany
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false, referencedColumnName = "ID")
     @ToString.Exclude
@@ -37,7 +38,6 @@ public class Printers implements TypeObject {
     @Setter
     @NonNull
     private String producer;
-
 
     public Printers() {
     }

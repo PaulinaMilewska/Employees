@@ -2,6 +2,7 @@ package spring.hibernate;
 
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
+import spring.hibernate.printer.Printers;
 
 import java.util.*;
 
@@ -19,7 +20,6 @@ public class DataSource {
         ServiceDao serviceDao = null;
 
 
-
         try {
             serviceDao = new ServiceDao();
             isDataBaseConnection = Boolean.TRUE;
@@ -29,11 +29,11 @@ public class DataSource {
         }
 
         Employees employees = new Employees();
-        employees.setFirstName("Janina");
+        employees.setFirstName("Aniela");
         employees.setLastName("Nowakowska");
         employees.setAge(77);
         employees.setBenefit(1);
-        employees.setCity("Stara");
+        employees.setCity("Stara Milosna");
         employees.setSalary(3000);
         employees.setAddress("Twoja 1");
 //        Date date = new Date();
@@ -43,6 +43,7 @@ public class DataSource {
 
         serviceDao.save(employees);
 
+
         Cars cars = new Cars();
         cars.setEmployees(employees);
         cars.setModel("Ceed");
@@ -50,6 +51,14 @@ public class DataSource {
         cars.setRegistrationDate(new Date());
 
         serviceDao.save(cars);
+
+        Printers printers = new Printers();
+        printers.setEmployees(employees);
+        printers.setModel("MP3001");
+        printers.setProducer("Ricoh");
+
+        serviceDao.save(printers);
+
 
         Set<Cars> carsSet = new HashSet<>();
         carsSet.add(cars);
@@ -70,11 +79,11 @@ public class DataSource {
 //        carEmployeeDao.update(employees);
     }
 
-    public static List<Employees> getEmployeeList(){
+    public static List<Employees> getEmployeeList() {
         List<Employees> list = new ArrayList<>();
-        Employees employee1 = new Employees("Test", "Test", "Test", "Test", 1000, 18 , new Date(), 1);
+        Employees employee1 = new Employees("Test", "Test", "Test", "Test", 1000, 18, new Date(), 1);
         employee1.setId(0);
-        Employees employee2 = new Employees("Test", "Test", "Test", "Test", 1000, 18 , new Date(), 1);
+        Employees employee2 = new Employees("Test", "Test", "Test", "Test", 1000, 18, new Date(), 1);
         employee2.setId(1);
         list.add(employee1);
         list.add(employee2);
