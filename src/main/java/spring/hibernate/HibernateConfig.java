@@ -7,6 +7,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
+import spring.hibernate.printer.Printers;
 
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -21,7 +22,7 @@ public class HibernateConfig {
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                settings.put(Environment.URL, "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=CONNECTIS2;integratedSecurity=true;");
+                settings.put(Environment.URL, "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=CONNECTIS3;integratedSecurity=true;");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.SQLServerDialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
@@ -31,6 +32,7 @@ public class HibernateConfig {
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Employees.class);
                 configuration.addAnnotatedClass(Cars.class);
+                configuration.addAnnotatedClass(Printers.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {

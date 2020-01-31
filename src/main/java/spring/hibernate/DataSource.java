@@ -5,6 +5,7 @@ import javafx.scene.effect.SepiaTone;
 import org.springframework.format.Printer;
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
+import spring.hibernate.printer.Printers;
 
 import java.time.Instant;
 import java.util.*;
@@ -21,7 +22,6 @@ public class DataSource {
     public static void supplyDatabase() {
 //        HibernateDao hibernateDao = null;
         CarEmployeeDao carEmployeeDao = null;
-
 
 
         try {
@@ -57,29 +57,29 @@ public class DataSource {
 
         Set<Cars> carsSet = new HashSet<>();
         carsSet.add(cars);
-
         employees.setCars(carsSet);
 
-//        Printer printer = new Printer();
+        Printers printer = new Printers();
+        List<Employees> employeesList = new ArrayList<>();
+        employeesList.add(employees);
+        printer.setEmployees(employeesList);
+        printer.setProducer("HP");
+        printer.setModel("100");
 //        printer.setEmployees(employees);
-//        printer.setProducer("HP");
-//        printer.setModel("100");
-//        printer.setEmployees(employees);
 
-//        Set<Printer> printerSet = new HashSet<>();
-//        printerSet.add(printer);
-
-//        employees.setPrinters(printerSet);
-
+        Set<Printers> printerSet = new HashSet<>();
+        printerSet.add(printer);
+        employees.setPrinters(printerSet);
+        carEmployeeDao.save(printer);
 //        carEmployeeDao.update(employees);
     }
 
 
-    public static List<Employees> getEmployeeList(){
+    public static List<Employees> getEmployeeList() {
         List<Employees> list = new ArrayList<>();
-        Employees employee1 = new Employees("Test", "Test", "Test", "Test", 1000, 18 , new Date(), 1);
+        Employees employee1 = new Employees("Test", "Test", "Test", "Test", 1000, 18, new Date(), 1);
         employee1.setId(0);
-        Employees employee2 = new Employees("Test", "Test", "Test", "Test", 1000, 18 , new Date(), 1);
+        Employees employee2 = new Employees("Test", "Test", "Test", "Test", 1000, 18, new Date(), 1);
         employee2.setId(1);
         list.add(employee1);
         list.add(employee2);

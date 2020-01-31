@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import spring.hibernate.TypeObject;
 
 import spring.hibernate.car.Cars;
+import spring.hibernate.printer.Printers;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,11 +32,9 @@ public class Employees implements TypeObject {
     private int id;
     @Column(name = "LastName")
     @NonNull
-    @Getter @Setter
     private String lastName;
     @Column(name = "FirstName")
     @NonNull
-    @Getter @Setter
     private String firstName;
     @Column(name = "Address")
     @NonNull
@@ -58,6 +57,7 @@ public class Employees implements TypeObject {
     private int benefit;
     @Column(name = "Email")
     private String email;
+
     @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -68,17 +68,16 @@ public class Employees implements TypeObject {
 //    @ToString.Exclude
 //    @EqualsAndHashCode.Exclude
 //    private Set<Phones> phones;
-//    @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Set<Printer> printers;
-//    public Employees(){}
 
-
+    //    @ManyToMany(mappedBy = "employees", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinTable(name = "employee_printer", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PRINTER_ID"))
+    @ManyToMany(mappedBy = "employees",  fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Printers> printers;
 
     public Employees() {
     }
-
 
 
 }

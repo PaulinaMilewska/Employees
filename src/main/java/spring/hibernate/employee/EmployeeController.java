@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class EmployeeController extends CarEmployeeDao{
+public class EmployeeController {
 
     private List<Employees> employees;
     private List<CarEmployeeDao> listCarEmpDao;
