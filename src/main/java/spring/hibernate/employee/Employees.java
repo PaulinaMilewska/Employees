@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import spring.hibernate.TypeObject;
 
 import spring.hibernate.car.Cars;
+import spring.hibernate.printer.Printers;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,12 +19,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Employees implements TypeObject {
-
-//    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
-//    @EqualsAndHashCode.Exclude
-//    @ToString.Exclude
-//    private List<Cars> cars;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,11 +60,13 @@ public class Employees implements TypeObject {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Cars> cars;
-//
+    //
     //todo : make it work
-//    @ManyToMany (cascade = CascadeType.ALL)
-//    @JoinTable(name = "Printer", joinColumns = {@JoinColumn(referencedColumnName="printer_ID")})
 
+    @ManyToMany(mappedBy = "employeesSet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Printers> printersSet;
 
 //    @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
 //    @ToString.Exclude
@@ -80,7 +77,6 @@ public class Employees implements TypeObject {
 //    @EqualsAndHashCode.Exclude
 //    private Set<Printer> printers;
 //    public Employees(){}
-
 
     public Employees() {
     }

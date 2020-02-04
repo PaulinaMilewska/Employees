@@ -2,22 +2,25 @@ package spring.hibernate.printer;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import spring.hibernate.DataSource;
 import spring.hibernate.ServiceDao;
 import spring.hibernate.employee.Employees;
+import spring.hibernate.printer.Printers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static java.lang.Integer.parseInt;
 
 @Controller
 public class PrinterController {
-    private List<Printers> list;
-    private PrinterDao printerDao;
+    private List<Printers> printersList;
+    private List<Employees> employeesList;
+    //    private PrinterDao printerDao;
     ServiceDao serviceDao;
 
 
@@ -25,15 +28,16 @@ public class PrinterController {
 
         try {
             serviceDao = new ServiceDao();
-//            DataSource.supplyDatabase();
-            list = serviceDao.get(Printers.class);
+            DataSource.supplyDatabase();
+            printersList = serviceDao.get(Printers.class);
+            employeesList = serviceDao.get(Employees.class);
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
-            list = new ArrayList<>();
+            employeesList = new ArrayList<>();
+            printersList = new ArrayList<>();
         }
     }
-
 
     @RequestMapping(value = "/printerform", method = RequestMethod.GET)
     public String showform(Model model) {
@@ -41,81 +45,61 @@ public class PrinterController {
         return "printer/printerform";
     }
 
-    //doesn't work
     // todo : repair
     @RequestMapping("/save_printer")
-    public ModelAndView savePrinter(@ModelAttribute(value = "printer") Printers printers) {
-        if (printers.getId() == 0) {
-            if (DataSource.isDataBaseConnection) {
-                serviceDao.save(printers);
+    public ModelAndView save(@ModelAttribute(value = "printer") Printers printers,
+                             @ModelAttribute(value = "employeesIds") ArrayList<Integer> employeesIds) {
+        Set<Employees> employeesHashSet = new HashSet<>();
+        for (Employees employees : employeesList) {
+            if (printers.getId() == 0) {
+                if (employeesIds.contains(employees.getId())) {
+                    employeesHashSet.add(employees);
+                }
             }
-            printers.setId(list.size());
-            list.add(printers);
+            printers.setEmployeesSet(employeesHashSet);
 
-        } else {
-            System.out.println();
-            System.out.println("Printer ID -------- " + printers.getId());
-//            System.out.println("Employee ID -------- "+printer.getEmployees().getId());
-//            System.out.println("EMP__NAME: "+ printer.getEmployees().getFirstName());
-            if (DataSource.isDataBaseConnection) {
-                printers.setEmployees(emp);
-                serviceDao.update(printers);
+            if (printers.getId() == 0) {
+                if (DataSource.isDataBaseConnection) {
+                    serviceDao.save(printers);
+                }
+                printers.setId(printersList.size());
+                printersList.add(printers);
+            } else {
+                System.out.println("Printer ID -------- " + printers.getId());
 
+                if (DataSource.isDataBaseConnection) {
+                    serviceDao.update(printers);
+                }
+                printersList.set(printers.getId() - 1, printers);
             }
-            list.set(printers.getId() - 1, printers);
-            updatePrinterInList(printers);
         }
-        return new ModelAndView("redirect:/viewprinter");
+        return new ModelAndView("redirect:/viewprinters");
     }
 
-    Employees emp;
-
-
-    @RequestMapping(value = "/edit_printer")
+    // todo : repair
+    @PostMapping(value = "/edit_printer")
     public ModelAndView edit(@RequestParam(value = "printer_id") String printer_id) {
-        System.out.println();
-        Printers printers = getPrinterById(Integer.parseInt(printer_id));
-        System.out.println("Printer_id: " + printer_id);
-        System.out.println("EMP_ID: " + printers.getEmployees().getId());
-        System.out.println("EMP__NAME: " + printers.getEmployees().getFirstName());
-        emp = printers.getEmployees();
-//        if (DataSource.isDataBaseConnection) {
-//            serviceDao.update(printer);
-//        }
-        return new ModelAndView("printer/printerform", "printer", printers);
+        Printers printer = getPrinterById(parseInt(printer_id));
+        System.out.println(" Get Printer_id: " + printer_id);
+        return new ModelAndView("printer/printerform", "printer", printer);
     }
-
-
     private Printers getPrinterById(@RequestParam int printer_id) {
-        return list.stream().filter(f -> f.getId() == printer_id).findFirst().get();
+        return printersList.stream().filter(f -> f.getId() == printer_id).findFirst().get();
     }
-
 
     @RequestMapping(value = "/delete_printer", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "printer_id") String printer_id) {
         System.out.println("Printer 1 id: " + printer_id);
-        Printers printersToDelete = getPrinterById(Integer.parseInt(printer_id));
-        System.out.println("Printer 2 id: " + printer_id);
+        Printers printersToDelete = getPrinterById(parseInt(printer_id));
         if (DataSource.isDataBaseConnection) {
             serviceDao.delete(printersToDelete);
         }
-        list.remove(printersToDelete);
-        return new ModelAndView("redirect:/viewprinter");
+        printersList.remove(printersToDelete);
+        return new ModelAndView("redirect:/viewprinters");
     }
 
-
-    @RequestMapping("/viewprinter")
+    @RequestMapping("/viewprinters")
     public ModelAndView viewprinter(Model model) {
-//        List<printer> list = printerDao.getprinter();
-        List<Printers> list = serviceDao.get(Printers.class);
-        return new ModelAndView("printer/viewprinter", "list", list);
+        return new ModelAndView("viewprinters", "printersList", printersList);
     }
-
-    private void updatePrinterInList(Printers printers) {
-        Printers printersTemp = getPrinterById(printers.getId());
-        printersTemp.setModel(printers.getModel());
-        printersTemp.setProducer(printers.getProducer());
-        //        printerTemp.setEmployees(printers.getEmployees());
-    }
-
 }

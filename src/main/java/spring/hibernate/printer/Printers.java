@@ -5,6 +5,7 @@ import spring.hibernate.TypeObject;
 import spring.hibernate.employee.Employees;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Printer")
@@ -18,15 +19,6 @@ public class Printers implements TypeObject {
     @Column(name = "ID")
     private int id;
 
-    // todo: change to @ManyToMany
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "EMPLOYEE_ID", nullable = false, referencedColumnName = "ID")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-//    @Getter @Setter
-    @NonNull
-    public Employees employees;
-
     @Column(name = "model")
     @Getter
     @Setter
@@ -38,6 +30,17 @@ public class Printers implements TypeObject {
     @Setter
     @NonNull
     private String producer;
+
+    // todo: check it
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "Employees-printers")
+    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "PRINTER_ID", referencedColumnName = "ID")
+    @ToString.Exclude
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    public Set<Employees> employeesSet;
 
     public Printers() {
     }
