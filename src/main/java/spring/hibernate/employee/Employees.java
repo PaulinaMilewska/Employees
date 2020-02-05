@@ -29,7 +29,7 @@ public class Employees implements TypeObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Long id;
     @Column(name = "LastName")
     @NonNull
     private String lastName;
@@ -57,7 +57,7 @@ public class Employees implements TypeObject {
     private int benefit;
     @Column(name = "Email")
     private String email;
-
+//
     @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -71,7 +71,7 @@ public class Employees implements TypeObject {
 
     //    @ManyToMany(mappedBy = "employees", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @JoinTable(name = "employee_printer", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PRINTER_ID"))
-    @ManyToMany(mappedBy = "employees",  fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "employees",  fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Printers> printers;

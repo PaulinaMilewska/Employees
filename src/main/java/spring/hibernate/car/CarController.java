@@ -1,6 +1,8 @@
 package spring.hibernate.car;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,18 +18,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CarController  {
-    private List<Cars> list;
+public class CarController {
+    @Autowired
     private CarDao carDao;
+
+    private List<Cars> list;
+
+
     CarEmployeeDao carEmployeeDao;
 
 
-    public CarController()  {
+    public CarController() {
 
         try {
-            carEmployeeDao = new CarEmployeeDao();
+//            carEmployeeDao = new CarEmployeeDao();
+            carDao = new CarDao();
 //            DataSource.supplyDatabase();
-            list = carEmployeeDao.get(Cars.class);
+//            list = carEmployeeDao.get(Cars.class);
+            list = carDao.getCars();
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
@@ -46,27 +54,60 @@ public class CarController  {
     public ModelAndView saveCar(@ModelAttribute(value = "car") Cars car) {
         if (car.getId() == 0) {
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.save(car);
+//                carEmployeeDao.save(car);
+                carDao.saveCar(car);
             }
-            car.setId(list.size());
+            car.setId((long) list.size());
             list.add(car);
 
         } else {
             System.out.println();
-            System.out.println("Car ID -------- "+car.getId());
+            System.out.println("Car ID ----------- " + car.getId());
 //            System.out.println("Employee ID -------- "+car.getEmployees().getId());
 //            System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
             if (DataSource.isDataBaseConnection) {
                 car.setEmployees(emp);
-                carEmployeeDao.update(car);
+//                carEmployeeDao.get(car.getId());
+                carDao.getCarById(Math.toIntExact(car.getId()));
 
             }
-            list.set(car.getId()-1, car);
+            list.set((int) (car.getId() - 1), car);
             updateCarInList(car);
         }
         return new ModelAndView("redirect:/viewcar");
     }
+
     Employees emp;
+
+
+    //WCZEŚNIEJ ZAKOMENTOWANE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//    @RequestMapping("/save_car")
+//    public ModelAndView saveCar(@ModelAttribute(value = "car") Cars car) {
+//        if (car.getId() == 0) {
+//            if (DataSource.isDataBaseConnection) {
+//                carEmployeeDao.save(car);
+//            }
+//            car.setId((long) list.size());
+//            list.add(car);
+//
+//        } else {
+//            System.out.println();
+//            System.out.println("Car ID -------- "+car.getId());
+////            System.out.println("Employee ID -------- "+car.getEmployees().getId());
+////            System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
+//            if (DataSource.isDataBaseConnection) {
+//                car.getId();
+//                car.setEmployees(emp);
+//                carEmployeeDao.update(car);
+//
+//            }
+//            list.set((int) (car.getId()-1), car);
+//            updateCarInList(car);
+//        }
+//        return new ModelAndView("redirect:/viewcar");
+//    }
+//    Employees emp;
 
 
     // doesn't edit last position
@@ -74,14 +115,14 @@ public class CarController  {
     public ModelAndView edit(@RequestParam(value = "car_id") String car_id) {
         System.out.println();
         Cars car = getCarById(Integer.parseInt(car_id));
-        System.out.println("Car_id: "+ car_id);
-        System.out.println("EMP_ID: "+ car.getEmployees().getId());
-        System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
+        System.out.println("Car_id: " + car_id);
+        System.out.println("EMP_ID: " + car.getEmployees().getId());
+        System.out.println("EMP__NAME: " + car.getEmployees().getFirstName());
         emp = car.getEmployees();
 //        if (DataSource.isDataBaseConnection) {
 //            carEmployeeDao.update(car);
 //        }
-            return new ModelAndView("car/carform", "car", car);
+        return new ModelAndView("car/carform", "car", car);
     }
 
 
@@ -89,14 +130,15 @@ public class CarController  {
         return list.stream().filter(f -> f.getId() == car_id).findFirst().get();
     }
 
-// doesn't delete last position
+    // doesn't delete last position
     @RequestMapping(value = "/delete_car", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "car_id") String car_id) {
-        System.out.println("Car1 id: "+ car_id);
-        Cars carToDelete =  getCarById(Integer.parseInt(car_id));
-        System.out.println("Car2 id: "+ car_id);
+        System.out.println("Car1 id: " + car_id);
+        Cars carToDelete = getCarById(Integer.parseInt(car_id));
+        System.out.println("Car2 id: " + car_id);
         if (DataSource.isDataBaseConnection) {
-            carEmployeeDao.delete(carToDelete);
+//            carEmployeeDao.delete(carToDelete);
+            carDao.deleteCar(carToDelete);
         }
         list.remove(carToDelete);
         return new ModelAndView("redirect:/viewcar");
@@ -105,13 +147,13 @@ public class CarController  {
 
     @RequestMapping("/viewcar")
     public ModelAndView viewcar(Model model) {
-//        List<Car> list = carDao.getCar();
-        List<Cars> list = carEmployeeDao.get(Cars.class);
+//        List<Cars> list = carEmployeeDao.get(Cars.class);
+        List<Cars> list = carDao.getCars();
         return new ModelAndView("car/viewcar", "list", list);
     }
 
     private void updateCarInList(Cars cars) {
-        Cars carTemp = getCarById(cars.getId());
+        Cars carTemp = getCarById(Math.toIntExact(cars.getId()));
         carTemp.setName(cars.getName());
         carTemp.setModel(cars.getModel());
         carTemp.setRegistrationDate(cars.getRegistrationDate());

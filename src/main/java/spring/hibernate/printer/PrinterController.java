@@ -1,5 +1,6 @@
 package spring.hibernate.printer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,16 +21,19 @@ import java.util.List;
 public class PrinterController {
 
     private List<Printers> list;
-//    private CarDao carDao;
-    CarEmployeeDao carEmployeeDao;
+    //    private CarDao carDao;
+//    CarEmployeeDao carEmployeeDao;
+    @Autowired
+    PrinterDao printerDao;
 
 
-    public PrinterController()  {
+    public PrinterController() {
 
         try {
-            carEmployeeDao = new CarEmployeeDao();
+            printerDao = new PrinterDao();
 //            DataSource.supplyDatabase();
-            list = carEmployeeDao.get(Printers.class);
+            list = printerDao.getPrinters();
+
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
@@ -48,27 +52,29 @@ public class PrinterController {
     public ModelAndView savePrinter(@ModelAttribute(value = "printer") Printers printers) {
         if (printers.getId() == 0) {
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.save(printers);
+                printerDao.savePrinter(printers);
             }
-            printers.setId(list.size());
+            printers.setId((long) list.size());
             list.add(printers);
 
         } else {
             System.out.println();
-            System.out.println("printer ID -------- "+printers.getId());
+            System.out.println("printer ID -------- " + printers.getId());
 //            System.out.println("Employee ID -------- "+car.getEmployees().getId());
 //            System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
             if (DataSource.isDataBaseConnection) {
                 printers.setEmployees(emp);
-                carEmployeeDao.update(printers);
+//                carEmployeeDao.update(printers);
+                printerDao.getPrintersById(Math.toIntExact(printers.getId()));
 
             }
-            list.set(printers.getId()-1, printers);
+            list.set((int) (printers.getId() - 1), printers);
             updatePrinterInList(printers);
         }
         return new ModelAndView("redirect:/viewprinter");
     }
-    List<Employees> emp= new ArrayList<>();
+
+    List<Employees> emp = new ArrayList<>();
 
 
     // doesn't edit last position
@@ -76,8 +82,8 @@ public class PrinterController {
     public ModelAndView edit(@RequestParam(value = "car_id") String printer_id) {
         System.out.println();
         Printers printer = getPrinterById(Integer.parseInt(printer_id));
-        System.out.println("printer_id: "+ printer_id);
-        System.out.println("EMP_ID: "+ printer.getEmployees());
+        System.out.println("printer_id: " + printer_id);
+        System.out.println("EMP_ID: " + printer.getEmployees());
 //        System.out.println("EMP__NAME: "+ printer.getEmployees().getFirstName());
         emp = printer.getEmployees();
 //        if (DataSource.isDataBaseConnection) {
@@ -94,11 +100,11 @@ public class PrinterController {
     // doesn't delete last position
     @RequestMapping(value = "/delete_printer", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam(value = "printer_id") String printer_id) {
-        System.out.println("printer1 id: "+ printer_id);
-        Printers printerToDelete =  getPrinterById(Integer.parseInt(printer_id));
-        System.out.println("printer2 id: "+ printer_id);
+        System.out.println("printer1 id: " + printer_id);
+        Printers printerToDelete = getPrinterById(Integer.parseInt(printer_id));
+        System.out.println("printer2 id: " + printer_id);
         if (DataSource.isDataBaseConnection) {
-            carEmployeeDao.delete(printerToDelete);
+            printerDao.deletePrinter(printerToDelete);
         }
         list.remove(printerToDelete);
         return new ModelAndView("redirect:/viewprinter");
@@ -108,12 +114,12 @@ public class PrinterController {
     @RequestMapping("/viewprinter")
     public ModelAndView viewprinter(Model model) {
 //        List<Car> list = carDao.getCar();
-        List<Printers> list = carEmployeeDao.get(Printers.class);
+        List<Printers> list = printerDao.getPrinters();
         return new ModelAndView("printer/viewprinter", "list", list);
     }
 
     private void updatePrinterInList(Printers printer) {
-        Printers printerTemp = getPrinterById(printer.getId());
+        Printers printerTemp = getPrinterById(Math.toIntExact(printer.getId()));
         printer.setModel(printer.getModel());
         printer.setProducer(printer.getProducer());
 //        carTemp.setEmployees(cars.getEmployees());

@@ -1,5 +1,6 @@
 package spring.hibernate.employee;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class EmployeeController {
 
     private List<Employees> employees;
     private List<CarEmployeeDao> listCarEmpDao;
-
+    @Autowired
     private EmployeeDao employeeDao;
     private CarEmployeeDao carEmployeeDao;
 
@@ -26,9 +27,12 @@ public class EmployeeController {
     public EmployeeController() {
 
         try {
-            carEmployeeDao = new CarEmployeeDao();
+//            carEmployeeDao = new CarEmployeeDao();
+            employeeDao = new EmployeeDao();
+
             DataSource.supplyDatabase();
-            employees = carEmployeeDao.get(Employees.class);
+//            employees = carEmployeeDao.get(Employees.class);
+            employees = employeeDao.getEmployees();
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
@@ -57,20 +61,24 @@ public class EmployeeController {
 //            employeeDao.saveEmployee(employee);
             System.out.println("Add new employee");
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.save(employee);
+//                carEmployeeDao.save(employee);
+                employeeDao.saveEmployee(employee);
             }
-            employee.setId(employees.size());
+//            employee.setId((long) employees.size());
+            employee.setId((long) 1);
             employees.add(employee);
 
 
         } else {
-//            employeeDao.updateEmployees(employee);
+            employeeDao.updateEmployees(employee);
 //            updateEmployeeInList(employee);
             if (DataSource.isDataBaseConnection) {
-                carEmployeeDao.update(employee);
+//                carEmployeeDao.update(employee);
+//                carEmployeeDao.get(employee.getId());
+                employeeDao.getEmployeesById(Math.toIntExact(employee.getId()));
             }
 //            employee.setId(employees.size());
-            employees.set(employee.getId()-1, employee);
+            employees.set(Math.toIntExact(employee.getId() - 1), employee);
         }
         return new ModelAndView("redirect:/viewemployees");
     }
@@ -96,7 +104,8 @@ public class EmployeeController {
         Employees employeeToDelete = getEmployeesById(Integer.parseInt(employee_id));
         employees.remove(employeeToDelete);
         if (DataSource.isDataBaseConnection) {
-            carEmployeeDao.delete(employeeToDelete);
+//            carEmployeeDao.delete(employeeToDelete);
+            employeeDao.deleteEmployee(employeeToDelete);
         }
         return new ModelAndView("redirect:/viewemployees");
     }
@@ -110,7 +119,7 @@ public class EmployeeController {
     }
 
     private void updateEmployeeInList(Employees employees) {
-        Employees employeesTemp = getEmployeesById(employees.getId());
+        Employees employeesTemp = getEmployeesById(Math.toIntExact(employees.getId()));
         employeesTemp.setFirstName(employees.getFirstName());
         employeesTemp.setLastName(employees.getLastName());
         employeesTemp.setAddress(employees.getAddress());
@@ -120,6 +129,7 @@ public class EmployeeController {
         employeesTemp.setStartJobDate(employees.getStartJobDate());
         employeesTemp.setBenefit(employees.getBenefit());
         employeesTemp.setCars(employees.getCars());
+        employeesTemp.setPrinters(employees.getPrinters());
 //        employeesTemp.setPhones(employees.getPhones());
     }
 

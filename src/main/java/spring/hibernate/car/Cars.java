@@ -18,9 +18,9 @@ public class Cars implements TypeObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false, referencedColumnName="ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

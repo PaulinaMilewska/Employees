@@ -15,12 +15,14 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Printers implements TypeObject {
+public class Printers
+//        implements TypeObject
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @Column(name = "model")
     @NonNull
@@ -44,7 +46,7 @@ public class Printers implements TypeObject {
 
     //    @ManyToMany(mappedBy = "employees", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     //    @JoinTable(name = "employee_printer", joinColumns = @JoinColumn(name = "PRINTER_ID"), inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false, referencedColumnName = "ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

@@ -23,11 +23,14 @@ public class HibernateConfig {
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 settings.put(Environment.URL, "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=CONNECTIS3;integratedSecurity=true;");
+//                settings.put(Environment.URL, "jdbc:mysql://remotemysql.com:3306/RcIsL9mup5?useSSL=false");
+//                settings.put(Environment.URL, "jdbc:mysql://remotemysql.com:3306/RcIsL9mup5;integratedSecurity=true;");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.SQLServerDialect");
+//                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "update");
-//                settings.put(Environment.HBM2DDL_AUTO, "create");
+//                settings.put(Environment.HBM2DDL_AUTO, "update");
+                settings.put(Environment.HBM2DDL_AUTO, "create");
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Employees.class);
