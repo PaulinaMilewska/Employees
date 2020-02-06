@@ -33,9 +33,9 @@ public class Printers implements TypeObject {
 
     // todo: check it
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "Employees-printers")
-    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
-    @JoinColumn(name = "PRINTER_ID", referencedColumnName = "ID")
+    @JoinTable(name = "Employees_printers",
+            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRINTER_ID"))
     @ToString.Exclude
     @Getter
     @Setter
@@ -44,5 +44,4 @@ public class Printers implements TypeObject {
 
     public Printers() {
     }
-
 }
