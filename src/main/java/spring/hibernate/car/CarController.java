@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@RequestMapping("car")
 public class CarController {
     private List<Cars> list = new ArrayList<>();
     private List<Employees> listEmp = new ArrayList<>();

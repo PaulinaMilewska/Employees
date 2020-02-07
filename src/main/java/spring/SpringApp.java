@@ -3,12 +3,14 @@ package spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @ComponentScan(basePackages =
         "spring.hibernate"
 )
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class SpringApp {
 
     public static void main(String[] args) {
