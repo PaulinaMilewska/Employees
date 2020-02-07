@@ -75,14 +75,14 @@ public class CarController {
         car.setEmployees(employeeToSet);
         System.out.println(car.getId()+ "   CAAAAARRRRR IIIDDDDDD");
         if (car.getId() == 0) {
-            if (DataSource.isDataBaseConnection) {
+//            if (DataSource.isDataBaseConnection) {
                 System.out.println("11111111112222222222222222222");
 //                serviceDao.save(car);
                 System.out.println("car id = 0 --- car id = 0 --- car id = 0 --- ");
                 car.setId(list.size()+1);
                 System.out.println("dont aaaaaaaaaadddddddddddddddddd");
                 carDao.saveCar(car);
-            }
+//            }
             car.setId(list.size());
 //            car.setId(list.size());
 //            car.setEmployees(listEmp.get(0));
@@ -94,14 +94,14 @@ public class CarController {
             System.out.println("Car ID -------- " + car.getId());
 //            System.out.println("Employee ID -------- "+car.getEmployees().getId());
 //            System.out.println("EMP__NAME: "+ car.getEmployees().getFirstName());
-            if (DataSource.isDataBaseConnection) {
+//            if (DataSource.isDataBaseConnection) {
                 listEmp = employeeDao.getEmployees();
                 int index = car.getId();
                 car.setEmployees(listEmp.get(index));
 //               serviceDao.update(car);
                 carDao.updateCar(car);
 
-            }
+//            }
             list.set(car.getId() - 1, car);
             updateCarInList(car);
         }
@@ -142,10 +142,10 @@ public class CarController {
         Long carId = Long.parseLong(car_id);
         Cars carToDelete = getCarById(carId);
         System.out.println("Car2 id: " + car_id);
-        if (DataSource.isDataBaseConnection) {
+//        if (DataSource.isDataBaseConnection) {
 //            serviceDao.delete(carToDelete);
             carDao.deleteCar(carToDelete);
-        }
+//        }
         list.remove(carToDelete);
         return new ModelAndView("redirect:/viewcar");
     }

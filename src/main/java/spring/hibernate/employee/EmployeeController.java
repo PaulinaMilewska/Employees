@@ -54,11 +54,11 @@ public class EmployeeController
         if (employee.getId() == 0) {
 
             System.out.println("Add new employee");
-            if (DataSource.isDataBaseConnection) {
+//            if (DataSource.isDataBaseConnection) {
 //                serviceDao.save(employee);
                 employeeDao.saveEmployee(employee);
 
-            }
+//            }
 //            employee.setId(employeesList.size());
             employee.setId(1);
             list.add(employee);
@@ -66,10 +66,10 @@ public class EmployeeController
         } else {
 //            employeeDao.updateEmployees(employee);
 //            updateEmployeeInList(employee);
-            if (DataSource.isDataBaseConnection) {
+//            if (DataSource.isDataBaseConnection) {
 //                serviceDao.update(employee);
                 employeeDao.updateEmployees(employee);
-            }
+//            }
 
             list.set(employee.getId() - 1, employee);
         }
@@ -96,10 +96,10 @@ public class EmployeeController
     public ModelAndView delete(@RequestParam(value = "employee_id") String employee_id) {
         Employees employeeToDelete = getEmployeesById(Integer.parseInt(employee_id));
         list.remove(employeeToDelete);
-        if (DataSource.isDataBaseConnection) {
+//        if (DataSource.isDataBaseConnection) {
 //            serviceDao.delete(employeeToDelete);
             employeeDao.deleteEmployee(employeeToDelete);
-        }
+//        }
 
         return new ModelAndView("redirect:/viewemployees");
     }

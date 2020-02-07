@@ -1,5 +1,6 @@
 package spring.hibernate.printer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +22,17 @@ public class PrinterController {
     private List<Printers> printersList;
     private List<Employees> employeesList;
     //    private PrinterDao printerDao;
-    ServiceDao serviceDao;
-
+//    ServiceDao serviceDao;
+    @Autowired
+    PrinterDao printerDao;
 
     public PrinterController() {
 
         try {
-            serviceDao = new ServiceDao();
+//            serviceDao = new ServiceDao();
 //            DataSource.supplyDatabase();
-            printersList = serviceDao.get(Printers.class);
-            employeesList = serviceDao.get(Employees.class);
+//            printersList = serviceDao.get(Printers.class);
+//            employeesList = serviceDao.get(Employees.class);
         } catch (
                 NullPointerException exception) {
             exception.getMessage();
@@ -59,17 +61,19 @@ public class PrinterController {
             printers.setEmployeesSet(employeesHashSet);
 
             if (printers.getId() == 0) {
-                if (DataSource.isDataBaseConnection) {
-                    serviceDao.save(printers);
-                }
+//                if (DataSource.isDataBaseConnection) {
+//                serviceDao.save(printers);
+                printerDao.savePrinter(printers);
+//                }
                 printers.setId(printersList.size());
                 printersList.add(printers);
             } else {
                 System.out.println("Printer ID -------- " + printers.getId());
 
-                if (DataSource.isDataBaseConnection) {
-                    serviceDao.update(printers);
-                }
+//                if (DataSource.isDataBaseConnection) {
+//                serviceDao.update(printers);
+                printerDao.savePrinter(printers);
+//                }
                 printersList.set(printers.getId() - 1, printers);
             }
         }
@@ -83,6 +87,7 @@ public class PrinterController {
         System.out.println(" Get Printer_id: " + printer_id);
         return new ModelAndView("printer/printerform", "printer", printer);
     }
+
     private Printers getPrinterById(@RequestParam int printer_id) {
         return printersList.stream().filter(f -> f.getId() == printer_id).findFirst().get();
     }
@@ -91,9 +96,10 @@ public class PrinterController {
     public ModelAndView delete(@RequestParam(value = "printer_id") String printer_id) {
         System.out.println("Printer 1 id: " + printer_id);
         Printers printersToDelete = getPrinterById(parseInt(printer_id));
-        if (DataSource.isDataBaseConnection) {
-            serviceDao.delete(printersToDelete);
-        }
+//        if (DataSource.isDataBaseConnection) {
+//        serviceDao.delete(printersToDelete);
+        printerDao.deletePrinter(printersToDelete);
+//        }
         printersList.remove(printersToDelete);
         return new ModelAndView("redirect:/viewprinters");
     }
