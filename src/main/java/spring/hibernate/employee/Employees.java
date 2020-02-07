@@ -1,7 +1,6 @@
 package spring.hibernate.employee;
 
 import lombok.*;
-import org.springframework.format.Printer;
 import org.springframework.format.annotation.DateTimeFormat;
 import spring.hibernate.TypeObject;
 
@@ -10,7 +9,6 @@ import spring.hibernate.printer.Printers;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -60,23 +58,19 @@ public class Employees implements TypeObject {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Cars> cars;
-    //
-    //todo : make it work
 
-    @ManyToMany(mappedBy = "employeesSet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    //todo : make it work
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "Employees_printers",
+            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRINTER_ID"))
     @ToString.Exclude
+    @Getter
+    @Setter
     @EqualsAndHashCode.Exclude
     private Set<Printers> printersSet;
 
-//    @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Set<Phones> phones;
-//    @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Set<Printer> printers;
-//    public Employees(){}
 
     public Employees() {
     }

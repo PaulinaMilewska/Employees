@@ -30,8 +30,12 @@
             <tr class="result" th:each="printer : ${list}">
                 <td th:text="${printer.model}"></td>
                 <td th:text="${printer.producer}"></td>
-                <td th:text="${printer.employees.id}"></td>
-<!--                <td th:text="${printer.employees.lastName}"></td>-->
+                <td>
+                    <table class="table table-sm">
+                        <tr class="result" data-th-each="item : ${printer.getEmployeesSet()}">
+                            <td th:text="${item.getFirstName() + ' ' + item.getLastName()}"></td>
+                        </tr>
+                    </table>
 
                 <td class="action-td">
                     <form method="post" class="padding5px" th:action="#" th:action="@{/delete_printer}">

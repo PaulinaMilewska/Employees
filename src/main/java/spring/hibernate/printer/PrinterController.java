@@ -42,6 +42,8 @@ public class PrinterController {
     @RequestMapping(value = "/printerform", method = RequestMethod.GET)
     public String showform(Model model) {
         model.addAttribute("printer", new Printers());
+        model.addAttribute("employeesList", employeesList);
+        model.addAttribute("employeesIds", new ArrayList<>());
         return "printer/printerform";
     }
 
@@ -99,7 +101,7 @@ public class PrinterController {
     }
 
     @RequestMapping("/viewprinters")
-    public ModelAndView viewprinter(Model model) {
+    public ModelAndView viewprinters(Model model) {
         return new ModelAndView("viewprinters", "printersList", printersList);
     }
 }

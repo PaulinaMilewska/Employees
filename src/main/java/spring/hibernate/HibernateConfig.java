@@ -9,7 +9,6 @@ import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
 import spring.hibernate.printer.Printers;
 
-import java.sql.DriverManager;
 import java.util.Properties;
 
 public class HibernateConfig {

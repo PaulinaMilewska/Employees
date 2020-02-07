@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Printer Add Form</title>
+    <title>Employee Add Form</title>
     <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" type="text/css">
     <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}" type="text/css">
 </head>
@@ -15,6 +15,13 @@
 <!--            <input type="hidden" th:field="*{id}">-->
             <input type="text" class="form-control" th:field="*{model}" placeholder="Model"><br>
             <input type="text" class="form-control" th:field="*{producer}" placeholder="Producer"><br>
+            <select class="form-control" multiple>
+                <option th:each="item : ${employeesList}"
+                        th:selected="${employeesIds.add(item.id)}"
+                        th:value="${item.id}"
+                        th:text="${item.firstName} + ' ' + ${item.lastName}"></option>
+            </select>
+
             <input type="submit" class="btn btn-dark">
         </form>
         <hr>

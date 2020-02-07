@@ -10,7 +10,6 @@ import java.util.List;
 
 @Component
 public class CarDao implements TypeObject {
-
     public CarDao() {
     }
 
@@ -29,13 +28,12 @@ public class CarDao implements TypeObject {
         }
     }
 
-
-
     public List<Cars> getCar() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             return session.createQuery("FROM Car", Cars.class).list();
         }
     }
+
 
     public void updateCar(Cars car) {
         Transaction transaction = null;
