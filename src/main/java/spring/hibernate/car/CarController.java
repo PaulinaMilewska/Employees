@@ -146,13 +146,13 @@ public class CarController {
 
     @RequestMapping("/viewcar")
     public ModelAndView viewcar(Model model) {
-        System.out.println("________________________________________");
+
 //        List<Car> list = carDao.getCar();
 //        List<Cars> list = serviceDao.get(Cars.class);
         list = carDao.getCars();
 //        list = repository.findAll();
 
-        System.out.println("*********************************************");
+
 //        list = carService.getAll();
         return new ModelAndView("car/viewcar", "list", list);
     }
