@@ -3,6 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<!--    <bean class="java.net.URI" id="dbUrl">-->
+<!--        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
+<!--        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() + '?sslmode=require' }"/>-->
+<!--        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>-->
+<!--        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>-->
+<!--    </bean>-->
 
 <!--    <bean id="scopeExample" class="spring.scope.ScopeExample" scope="prototype" />-->
 <!--    <bean id="scopeSingletonExample" class="spring.scope.ScopeExample" scope="singleton" />-->

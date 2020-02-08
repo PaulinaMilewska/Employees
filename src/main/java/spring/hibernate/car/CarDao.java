@@ -73,13 +73,13 @@ public class CarDao
 //        }
 //    }
 
-    public Cars getCarById(Integer car_id) {
-        {
-            try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-                return session.get(Cars.class, car_id);
-            }
-        }
-    }
+//    public Cars getCarById(Integer car_id) {
+//        {
+//            try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+//                return session.get(Cars.class, car_id);
+//            }
+//        }
+//    }
 
     public void deleteCar(Cars carToDelete){
         repository.delete(Long.valueOf(carToDelete.getId()));

@@ -68,25 +68,18 @@ public class CarController {
     public ModelAndView saveCar(@ModelAttribute(value = "car") Cars car,
                                 @ModelAttribute(value = "emp.id") String emp_id_Sting) {
         int emp_id = Integer.parseInt(emp_id_Sting);
-//        listEmp = employeeDao.getEmployees();
-        Employees employeeToSet = listEmp.stream().filter(f -> f.getId() == emp_id).findFirst().get();
+        listEmp = employeeDao.getEmployees();
 
-//        car.setEmployees(listEmp.get(emp_id));
-        car.setEmployees(employeeToSet);
-        System.out.println(car.getId()+ "   CAAAAARRRRR IIIDDDDDD");
+        car.setEmployees(listEmp.get(emp_id));
         if (car.getId() == 0) {
 //            if (DataSource.isDataBaseConnection) {
-                System.out.println("11111111112222222222222222222");
 //                serviceDao.save(car);
-                System.out.println("car id = 0 --- car id = 0 --- car id = 0 --- ");
                 car.setId(list.size()+1);
-                System.out.println("dont aaaaaaaaaadddddddddddddddddd");
                 carDao.saveCar(car);
 //            }
             car.setId(list.size());
 //            car.setId(list.size());
 //            car.setEmployees(listEmp.get(0));
-            System.out.println("AAAAAAAAAAAADDDDDDDDDDDDDDDDDD");
             list.add(car);
 
         } else {
