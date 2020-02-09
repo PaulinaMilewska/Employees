@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/html"
+      xmlns:background-color="http://java.sun.com/JSP/Page">
+<head>
+    <meta charset="UTF-8">
+    <title>All Printers</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" type="text/css">
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div id="title">
+            <h1>Printers List</h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Model</th>
+                <th>Producer</th>
+                <th>EmployeeID</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="result" th:each="printer : ${list}">
+                <td th:text="${printer.model}"></td>
+                <td th:text="${printer.producer}"></td>
+                <td>
+                    <table class="table table-sm">
+                        <tr class="result" data-th-each="item : ${printer.getEmployeesSet()}">
+                            <td th:text="${item.getFirstName() + ' ' + item.getLastName()}"></td>
+                        </tr>
+                    </table>
+
+                <td class="action-td">
+                    <form method="post" class="padding5px" th:action="#" th:action="@{/delete_printer}">
+                        <input type="hidden" th:name="printer_id" th:value="${printer.id}">
+                        <input type="submit" class="btn btn-danger"  value="Delete" >
+                    </form>
+                    <form method="post" class="padding5px" action="#" th:action="@{/edit_printer}">
+                        <input type="hidden" th:name="printer_id" th:value="${printer.id}">
+                        <input type="submit" class="btn btn-warning"  value="Edit">
+
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="/" class="btn btn-secondary">Main menu</a>
+        <a href="/printerform" class="btn btn-primary">Add new printer</a>
+    </div>
+
+</div>
+</body>
+</html>
