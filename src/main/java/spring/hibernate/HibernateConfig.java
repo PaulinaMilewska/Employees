@@ -1,25 +1,54 @@
 package spring.hibernate;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import spring.hibernate.car.Cars;
 import spring.hibernate.employee.Employees;
 import spring.hibernate.printer.Printers;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
-@Configuration
+//@Configuration
 public class HibernateConfig {
+    private static SessionFactory sessionFactory;
+
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+
+                Configuration configuration = new Configuration();
+                Properties settings = new Properties();
+                settings.put(Environment.DRIVER, "org.postgresql.Driver");
+                URI dbUri = new URI("postgres://wprdqihxandegt:2124917fcd34e4543fcd7142eaa15b048384eca76f4e73f070e81a8ec8bd8cd2@ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dbcmu0kj3lva70");
+                String username = dbUri.getUserInfo().split("wprdqihxandegt")[0];
+                String password = dbUri.getUserInfo().split("2124917fcd34e4543fcd7142eaa15b048384eca76f4e73f070e81a8ec8bd8cd2")[1];
+                String dbUrl = "jdbc:postgresql://ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dbcmu0kj3lva70?sslmode=require";
+                System.out.println(dbUrl);
+                settings.put(Environment.URL, dbUrl);
+                settings.put(Environment.USER, username);
+                settings.put(Environment.PASS, password);
+                settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
+                settings.put(Environment.SHOW_SQL, "true");
+                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                settings.put(Environment.HBM2DDL_AUTO, "update");
+//                settings.put(Environment.HBM2DDL_AUTO, "create");
+                configuration.setProperties(settings);
+                configuration.addAnnotatedClass(Employees.class);
+//                configuration.addAnnotatedClass(Phones.class);
+                configuration.addAnnotatedClass(Cars.class);
+                configuration.addAnnotatedClass(Printers.class);
+                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return sessionFactory;
+    }
 
 //    @Bean
 //    public BasicDataSource dataSource() throws URISyntaxException {
