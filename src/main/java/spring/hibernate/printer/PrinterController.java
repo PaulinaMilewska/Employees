@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import spring.hibernate.DataSource;
-import spring.hibernate.ServiceDao;
 import spring.hibernate.employee.Employees;
-import spring.hibernate.printer.Printers;
 
 import java.util.ArrayList;
 import java.util.HashSet;

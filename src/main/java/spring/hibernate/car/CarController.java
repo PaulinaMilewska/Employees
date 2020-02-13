@@ -1,6 +1,5 @@
 package spring.hibernate.car;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import spring.hibernate.ServiceDao;
-import spring.hibernate.DataSource;
 import spring.hibernate.employee.EmployeeDao;
 import spring.hibernate.employee.Employees;
 
