@@ -82,8 +82,8 @@ public class CarDao
 //    }
 
     public void deleteCar(Cars carToDelete){
-        repository.delete(Long.valueOf(carToDelete.getId()));
-
+//        repository.delete(Long.valueOf(carToDelete.getId()));
+        repository.delete(carToDelete);
     }
 
 //    public void deleteCar(Cars carToDelete) {

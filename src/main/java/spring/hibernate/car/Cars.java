@@ -27,7 +27,7 @@ public class Cars
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
 //    @Getter @Setter
-    @NonNull
+//    @NonNull
     public Employees employees;
 
     @Column(name = "Name")

@@ -23,10 +23,10 @@ public class HibernateConfig {
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "org.postgresql.Driver");
-                URI dbUri = new URI("postgres://wprdqihxandegt:2124917fcd34e4543fcd7142eaa15b048384eca76f4e73f070e81a8ec8bd8cd2@ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dbcmu0kj3lva70");
-                String username = dbUri.getUserInfo().split("wprdqihxandegt")[0];
-                String password = dbUri.getUserInfo().split("2124917fcd34e4543fcd7142eaa15b048384eca76f4e73f070e81a8ec8bd8cd2")[1];
-                String dbUrl = "jdbc:postgresql://ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/dbcmu0kj3lva70?sslmode=require";
+                URI dbUri = new URI("postgres://iwadpmkavjwttt:adeacfa29e243705d30ca548bb7454a05c955929a986eb0eef5dda6f4613898f@ec2-54-247-170-5.eu-west-1.compute.amazonaws.com:5432/d2co2812u94h5d");
+                String username = dbUri.getUserInfo().split("iwadpmkavjwttt")[0];
+                String password = dbUri.getUserInfo().split("adeacfa29e243705d30ca548bb7454a05c955929a986eb0eef5dda6f4613898f")[1];
+                String dbUrl = "jdbc:postgresql://ec2-54-247-170-5.eu-west-1.compute.amazonaws.com:5432/d2co2812u94h5d?sslmode=require";
                 System.out.println(dbUrl);
                 settings.put(Environment.URL, dbUrl);
                 settings.put(Environment.USER, username);

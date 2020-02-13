@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Printer")
+@Table(name = "Printers")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -38,9 +38,9 @@ public class Printers implements TypeObject {
 //    @JoinColumn(name = "PRINTER_ID", referencedColumnName = "ID")
 //    @ManyToMany(mappedBy = "employeesSet", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @JoinTable(name = "Printer_Employees", joinColumns = @JoinColumn(name = "ID"), inverseJoinColumns = @JoinColumn(name = "ID"))
-//    @JoinTable(name = "Printer_Employees",
-//            joinColumns = {@JoinColumn(name = "printerId", referencedColumnName = "ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "employeeId", referencedColumnName = "ID")})
+    @JoinTable(name = "Printer_Employees",
+            joinColumns = {@JoinColumn(name = "printerId", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "employeeId", referencedColumnName = "ID")})
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false, referencedColumnName = "ID")
     @ToString.Exclude

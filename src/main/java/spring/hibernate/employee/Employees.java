@@ -56,7 +56,7 @@ public class Employees implements TypeObject {
     @Column(name = "Email")
     private String email;
 
-    @OneToMany(mappedBy = "employees", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employees", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Cars> cars;
