@@ -12,7 +12,7 @@ import spring.hibernate.printer.Printers;
 import java.net.URI;
 import java.util.Properties;
 
-//@Configuration
+@org.springframework.context.annotation.Configuration
 public class HibernateConfig {
     private static SessionFactory sessionFactory;
 
